@@ -1,5 +1,7 @@
 import Link from "next/link";
 import "./globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "Web3 Portfolio",
@@ -121,7 +123,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </nav>
         </header>
-        <main>{children}</main>
+        <main>
+          <Providers>{children}</Providers>
+        </main>
       </body>
     </html>
   );
