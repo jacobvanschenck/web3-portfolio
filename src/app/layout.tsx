@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex">
         <header>
           <nav className="flex flex-col justify-between h-full bg-slate-800 px-4 py-6">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center whitespace-nowrap">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -123,7 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </nav>
         </header>
-        <main>
+        <main className="h-screen w-full">
           <Providers>{children}</Providers>
         </main>
       </body>
