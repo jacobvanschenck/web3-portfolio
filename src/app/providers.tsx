@@ -12,7 +12,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [publicProvider()]
 );
 
-const projectId = process.env.NEXT_PUBLIC_ALCHEMY_ID ?? "";
+const projectId = process.env.NEXT_PUBLIC_WC_ID ?? "";
 
 const { wallets } = getDefaultWallets({
   appName: "RainbowKit demo",
