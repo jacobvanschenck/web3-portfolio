@@ -68,9 +68,11 @@ export default function CustomConnectButton() {
                     className="flex items-center px-3 py-1 gap-1 border-zinc-600 rounded-3xl border-[1px] text-zinc-100"
                     type="button"
                   >
-                    <div className="w-6 h-6 rounded-full overflow-hidden">
-                      <Image alt="ens avatar" src={account.ensAvatar} width={24} height={24} />
-                    </div>
+                    {account.ensAvatar && (
+                      <div className="w-6 h-6 rounded-full overflow-hidden">
+                        <Image alt="ens avatar" src={account.ensAvatar} width={24} height={24} />
+                      </div>
+                    )}
                     {account.displayName}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
