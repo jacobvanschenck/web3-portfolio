@@ -11,9 +11,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="flex bg-zinc-900 text-zinc-50">
+      <body className="flex bg-zinc-950 text-zinc-400">
         <header>
-          <nav className="flex flex-col justify-between h-full bg-zinc-800 px-4 py-6">
+          <nav className="flex flex-col justify-between h-full bg-zinc-900 px-4 py-6">
             <div className="flex gap-2 items-center whitespace-nowrap">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </svg>
               <h1 className="text-xl">Web3 Portfolio</h1>
             </div>
-            <ul className="flex flex-col gap-8">
+            <ul className="flex flex-col gap-8 grow py-16">
               <li>
                 <Link href="/" className="flex gap-2 items-center">
                   <svg
