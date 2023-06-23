@@ -11,9 +11,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="flex">
+      <body className="flex bg-zinc-900 text-zinc-50">
         <header>
-          <nav className="flex flex-col justify-between h-full bg-slate-800 px-4 py-6">
+          <nav className="flex flex-col justify-between h-full bg-zinc-800 px-4 py-6">
             <div className="flex gap-2 items-center whitespace-nowrap">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
