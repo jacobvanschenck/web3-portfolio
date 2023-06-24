@@ -1,8 +1,17 @@
 import { Network, Alchemy, TokenBalanceType } from "alchemy-sdk";
 
+type MetaDataObject = {
+  name: string | null;
+  symbol: string | null;
+  logo: string | null;
+  decimals: number | null;
+  balance: string | null;
+  address: string | null;
+};
+
 export async function POST(req: Request) {
   // parse the address and chain from the request body
-  const { address, chain } = await req.json();
+  const { address, chain }: { address: string; chain: string } = await req.json();
 
   // check if the request method is POST
   if (req.method !== "POST") {
@@ -12,7 +21,7 @@ export async function POST(req: Request) {
   // set the settings for Alchemy SDK
   const settings = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY,
-    network: Network[chain],
+    network: Network[chain as keyof typeof Network],
   };
 
   // create an instance of the Alchemy SDK
@@ -64,7 +73,7 @@ export async function POST(req: Request) {
     );
 
     // create an array of objects representing each token balance
-    const unifiedBalancedAndMetadata = [ethBalanceObject];
+    const unifiedBalancedAndMetadata: Array<MetaDataObject> = [ethBalanceObject];
 
     for (let x = 0; x < fetchedTokenMetadata.length - 1; x++) {
       const tokenMetadata = fetchedTokenMetadata[x];
@@ -74,11 +83,11 @@ export async function POST(req: Request) {
       let convertedBalance;
 
       if (hexBalance && tokenMetadata.decimals) {
-        convertedBalance = parseInt(hexBalance) / Math.pow(10, decimals);
+        convertedBalance = parseInt(hexBalance) / Math.pow(10, decimals ?? 0);
         if (convertedBalance > 0) {
           const tokenBalanceAndMetadata = {
             name,
-            symbol: symbol.length > 6 ? `${symbol.substring(0, 6)}...` : symbol,
+            symbol: symbol?.length ?? 0 > 6 ? `${symbol?.substring(0, 6)}...` : symbol,
             logo,
             decimals,
             balance: convertedBalance.toFixed(2),
@@ -90,7 +99,7 @@ export async function POST(req: Request) {
     }
 
     // filter out any token balances with empty names
-    unifiedBalancedAndMetadata.filter((balanceAndMetadata) => balanceAndMetadata.name.length);
+    unifiedBalancedAndMetadata.filter((balanceAndMetadata) => balanceAndMetadata.name?.length);
 
     return new Response(JSON.stringify(unifiedBalancedAndMetadata), { status: 200 });
   } catch (e) {
