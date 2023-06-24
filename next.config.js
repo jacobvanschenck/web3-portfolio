@@ -3,16 +3,6 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cryptologos.cc",
-        port: "",
-        pathname: "",
-      },
-    ],
-  },
   webpack: (config) => {
     config.resolve.fallback = {
       fs: false,
