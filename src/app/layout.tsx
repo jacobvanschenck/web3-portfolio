@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex bg-zinc-950 text-zinc-400">
         <header>
           <nav className="flex flex-col justify-between h-full bg-zinc-900 px-4 py-6">
-            <div className="flex gap-2 items-center whitespace-nowrap">
+            <div className="flex gap-2 items-center whitespace-nowrap text-zinc-50">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
