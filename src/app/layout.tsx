@@ -13,15 +13,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="flex bg-zinc-950 text-zinc-400">
         <header>
-          <nav className="flex flex-col justify-between h-full bg-zinc-900 px-4 py-6">
-            <div className="flex gap-2 items-center whitespace-nowrap text-zinc-50">
+          <nav className="flex h-full flex-col justify-between bg-zinc-900 px-4 py-6">
+            <div className="flex items-center gap-2 whitespace-nowrap text-zinc-50">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="h-6 w-6"
               >
                 <path
                   strokeLinecap="round"
@@ -31,16 +31,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </svg>
               <h1 className="text-xl">Web3 Portfolio</h1>
             </div>
-            <ul className="flex flex-col gap-8 grow py-16">
+            <ul className="flex grow flex-col gap-8 py-16">
               <li>
-                <Link href="/" className="flex gap-2 items-center">
+                <Link href="/" className="flex items-center gap-2" passHref>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5"
+                    className="h-5 w-5"
                   >
                     <path
                       strokeLinecap="round"
@@ -53,14 +53,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               </li>
               <li>
-                <Link href="/swap" className="flex gap-2 items-center">
+                <Link href="/swap" className="flex items-center gap-2" passHref>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                   >
                     <path
                       strokeLinecap="round"
@@ -72,14 +72,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               </li>
               <li>
-                <Link href="/buy" className="flex gap-2 items-center">
+                <Link href="/buy" className="flex items-center gap-2" passHref>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5"
+                    className="h-5 w-5"
                   >
                     <path
                       strokeLinecap="round"
@@ -91,14 +91,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               </li>
             </ul>
-            <div className="flex gap-2 w-full justify-center items-center">
+            <div className="flex w-full items-center justify-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="h-6 w-6"
               >
                 <path
                   strokeLinecap="round"
@@ -112,7 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-5 h-5"
+                className="h-5 w-5"
               >
                 <path
                   strokeLinecap="round"

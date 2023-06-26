@@ -8,18 +8,18 @@ export default function Home() {
   const { isConnected } = useAccount();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-start gap-12 p-10 grow">
-      <div className="w-full flex gap-4 items-center">
+    <div className="flex min-h-screen grow flex-col items-center justify-start gap-12 p-10">
+      <div className="flex w-full items-center gap-4">
         <h2 className="text-2xl font-bold text-zinc-50">Dashboard</h2>
         {isConnected && <CustomConnectButton />}
       </div>
       {!isConnected ? (
-        <section className="flex flex-col items-center grow justify-center">
+        <section className="flex grow flex-col items-center justify-center">
           <h3>Connect Your Wallet</h3>
           <CustomConnectButton />
         </section>
       ) : (
-        <section className="flex flex-col gap-12 w-full">
+        <section className="flex w-full flex-col gap-12">
           <div className="flex flex-col gap-4">
             <h3>Portfolio Value</h3>
             <p className="text-4xl font-bold text-zinc-50">$1,528.36</p>
