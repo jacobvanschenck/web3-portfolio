@@ -36,6 +36,10 @@ export async function POST(req: Request) {
     // fetch the Ethereum balance for the given address
     const ethBalance = await alchemy.core.getBalance(address);
     const parsedEthBalance = parseInt(ethBalance.toString()) / Math.pow(10, 18);
+    const ethPrice = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd").then(
+      (res) => res.json()
+    );
+    const balanceUsd = (parsedEthBalance * ethPrice.ethereum.usd).toFixed(2);
 
     // create an object representing the Ethereum balance
     const ethBalanceObject = {
@@ -43,8 +47,10 @@ export async function POST(req: Request) {
       symbol: "ETH",
       logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
       decimals: 18,
-      balance: parsedEthBalance.toFixed(2),
+      balance: parsedEthBalance.toFixed(4),
       address: "0x",
+      price: ethPrice.ethereum.usd,
+      balanceUsd,
     };
 
     // extract the token balances and contract addresses from the fetched tokens
@@ -56,8 +62,12 @@ export async function POST(req: Request) {
     const fetchedTokenMetadata = await Promise.all(
       fetchedTokenAddresses.map(async (address) => {
         let metadata;
+        let tokenPrice;
         try {
           metadata = await alchemy.core.getTokenMetadata(address);
+          tokenPrice = await fetch(
+            `https://api.coingecko.com/api/v3/simple/price?ids=${metadata.name}&vs_currencies=usd`
+          ).then((res) => res.json());
         } catch (e) {
           console.log(e);
           metadata = {
@@ -68,7 +78,7 @@ export async function POST(req: Request) {
           };
         }
 
-        return metadata;
+        return { ...metadata, price: tokenPrice ?? null };
       })
     );
 
@@ -81,17 +91,20 @@ export async function POST(req: Request) {
       const hexBalance = fetchedTokenBalances[x];
       const address = fetchedTokenAddresses[x];
       let convertedBalance;
+      let balanceUsd;
 
       if (hexBalance && tokenMetadata.decimals) {
         convertedBalance = parseInt(hexBalance) / Math.pow(10, decimals ?? 0);
         if (convertedBalance > 0) {
+          balanceUsd = (convertedBalance * tokenMetadata.price).toFixed(2);
           const tokenBalanceAndMetadata = {
             name,
             symbol: symbol?.length ?? 0 > 6 ? `${symbol?.substring(0, 6)}...` : symbol,
             logo,
             decimals,
-            balance: convertedBalance.toFixed(2),
+            balance: convertedBalance.toFixed(4),
             address,
+            balanceUsd,
           };
           unifiedBalancedAndMetadata.push(tokenBalanceAndMetadata);
         }
