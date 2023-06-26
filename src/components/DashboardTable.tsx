@@ -1,6 +1,7 @@
 "use client";
 
 import { NftMetadata } from "@/app/api/getNftsForOwner/route";
+import { TxMetadata } from "@/app/api/getTxHistory/route";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
@@ -16,6 +17,11 @@ type TokenTableProps = {
 };
 
 type NftTableProps = {
+  address: `0x${string}` | undefined;
+  chain: string;
+};
+
+type TxTableProps = {
   address: `0x${string}` | undefined;
   chain: string;
 };
@@ -58,7 +64,7 @@ export default function DashboardTable({ chain }: DashboardTableProps) {
       </div>
       {selectedTable === "token" && <TokenTable address={address} chain={chain} isConnected={isConnected} />}
       {selectedTable === "nft" && <NftTable address={address} chain={chain} />}
-      {selectedTable === "tx" && <p>tx</p>}
+      {selectedTable === "tx" && <TxTable address={address} chain={chain} />}
     </div>
   );
 }
@@ -181,5 +187,55 @@ function NftTable({ chain, address }: NftTableProps) {
         </Link>
       ))}
     </div>
+  );
+}
+
+function TxTable({ chain, address }: TxTableProps) {
+  const [txHistory, setTxHistory] = useState<Array<TxMetadata> | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getTxHistory = useCallback(async () => {
+    try {
+      const fetchedTxs = await fetch("/api/getTxHistory", {
+        method: "POST",
+        body: JSON.stringify({
+          address,
+          chain,
+        }),
+      }).then((res) => res.json());
+      setTxHistory(fetchedTxs);
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getTxHistory();
+  }, []);
+
+  if (isLoading || !txHistory) return <p>Loading Transactions...</p>;
+  if (txHistory.length === 0) return <p>No Transactions found for this address</p>;
+
+  return (
+    <table className="table-fixed text-left">
+      <thead>
+        <tr className="border-b-[1px] border-zinc-600 ">
+          <th className="w-3/5 p-4 text-sm font-normal">from</th>
+          <th className="p-4 text-sm font-normal">to</th>
+          <th className="p-4 text-sm font-normal">value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {txHistory.map((t, i) => (
+          <tr key={i}>
+            <td>{t.from.slice(0, 8)}...</td>
+            <td>{t.to.slice(0, 8)}...</td>
+            <td>{t.value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
