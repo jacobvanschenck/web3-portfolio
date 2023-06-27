@@ -69,7 +69,7 @@ export async function POST(req: Request) {
             `https://api.coingecko.com/api/v3/simple/price?ids=${metadata.name}&vs_currencies=usd`
           ).then((res) => res.json());
         } catch (e) {
-          console.log(e);
+          console.warn(e);
           metadata = {
             name: null,
             symbol: null,

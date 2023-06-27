@@ -87,7 +87,7 @@ function TokenTable({ address, chain, isConnected }: TokenTableProps) {
         }).then((res) => res.json());
         setTokenBalances(fetchedTokensBalance);
       } catch (e) {
-        console.log(e);
+        console.warn(e);
       }
     }
     setIsloading(false);
@@ -97,8 +97,6 @@ function TokenTable({ address, chain, isConnected }: TokenTableProps) {
   useEffect(() => {
     if (address?.length) getBalance();
   }, [address, getBalance]);
-
-  console.log(tokenBalances);
 
   if (isLoading) return <p>Loading Tokens ...</p>;
 
@@ -167,8 +165,6 @@ function NftTable({ chain, address }: NftTableProps) {
   if (isLoading || !nftsForOwner) return <p>Loading Nfts ...</p>;
   if (nftsForOwner.length === 0) return <p>No NFTs Found for this address</p>;
 
-  console.log(nftsForOwner);
-
   return (
     <div className="flex flex-wrap gap-8">
       {nftsForOwner.map((data, i) => (
@@ -219,8 +215,6 @@ function TxTable({ chain, address }: TxTableProps) {
 
   if (isLoading || !txHistory) return <p>Loading Transactions...</p>;
   if (txHistory.length === 0) return <p>No Transactions found for this address</p>;
-
-  console.log(txHistory);
 
   return (
     <table className="table-fixed text-left">
