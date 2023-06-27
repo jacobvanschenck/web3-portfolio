@@ -9,7 +9,7 @@ type RequestBody = {
 export type TxMetadata = {
   from: string;
   to: string;
-  value: string;
+  value: number;
   asset: string;
   hash: string;
   logo: string;

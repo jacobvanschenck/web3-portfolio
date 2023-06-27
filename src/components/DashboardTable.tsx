@@ -216,6 +216,8 @@ function TxTable({ chain, address }: TxTableProps) {
   if (isLoading || !txHistory) return <p>Loading Transactions...</p>;
   if (txHistory.length === 0) return <p>No Transactions found for this address</p>;
 
+  console.log(txHistory);
+
   return (
     <table className="table-fixed text-left">
       <tbody>
@@ -246,7 +248,7 @@ function TxTable({ chain, address }: TxTableProps) {
             <td>
               <div className="flex flex-col">
                 <p className="font-bold text-zinc-50">${t.price}</p>
-                <p>{Math.round(parseInt(t.value) * 100000) / 100000} ETH</p>
+                <p>{Math.round(t.value * 100000) / 100000} ETH</p>
               </div>
             </td>
             <td>
