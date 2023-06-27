@@ -15,6 +15,7 @@ export type TxMetadata = {
   logo: string;
   timestamp: string;
   category: string;
+  price: number;
 };
 export async function POST(req: Request) {
   // parse the address and chain from the request body
@@ -33,6 +34,10 @@ export async function POST(req: Request) {
 
   // create an instance of the Alchemy SDK
   const alchemy = new Alchemy(settings);
+
+  const ethPrice = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`).then(
+    (res) => res.json()
+  );
 
   try {
     // Get outgoing asset transfers for the specified address
@@ -83,7 +88,9 @@ export async function POST(req: Request) {
         let tokenMetadata;
         try {
           tokenMetadata = await alchemy.core.getTokenMetadata(assetTransfer.rawContract.address ?? "");
-        } catch (e) {}
+        } catch (e) {
+          console.warn(e);
+        }
 
         return {
           from: assetTransfer.from,
@@ -94,6 +101,7 @@ export async function POST(req: Request) {
           logo: tokenMetadata ? tokenMetadata.logo : null,
           timestamp: assetTransfer.metadata.blockTimestamp,
           category: assetTransfer.category,
+          price: ethPrice ? (ethPrice.ethereum.usd * (assetTransfer.value ? assetTransfer.value : 0)).toFixed(2) : null,
         };
       })
     );
@@ -104,7 +112,9 @@ export async function POST(req: Request) {
         let tokenMetadata;
         try {
           tokenMetadata = await alchemy.core.getTokenMetadata(assetTransfer.rawContract.address ?? "");
-        } catch (e) {}
+        } catch (e) {
+          console.warn(e);
+        }
 
         return {
           from: assetTransfer.from,
@@ -115,6 +125,7 @@ export async function POST(req: Request) {
           logo: tokenMetadata ? tokenMetadata.logo : null,
           timestamp: assetTransfer.metadata.blockTimestamp,
           category: assetTransfer.category,
+          price: ethPrice ? (ethPrice.ethereum.usd * (assetTransfer.value ? assetTransfer.value : 0)).toFixed(2) : null,
         };
       })
     );

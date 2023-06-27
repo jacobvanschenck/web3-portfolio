@@ -5,6 +5,7 @@ import { TxMetadata } from "@/app/api/getTxHistory/route";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
+import Avatar from "./avatar";
 
 type DashboardTableProps = {
   chain: string;
@@ -38,25 +39,22 @@ export default function DashboardTable({ chain }: DashboardTableProps) {
         <div className="flex gap-2 rounded-3xl border-[1px] border-zinc-600 p-[2px]">
           <button
             onClick={() => setSelectedTable("token")}
-            className={`px-4 py-2 rounded-3xl ${
-              selectedTable === "token" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
-            }`}
+            className={`px-4 py-2 rounded-3xl ${selectedTable === "token" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+              }`}
           >
             Tokens
           </button>
           <button
             onClick={() => setSelectedTable("nft")}
-            className={`px-4 py-2 rounded-3xl ${
-              selectedTable === "nft" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
-            }`}
+            className={`px-4 py-2 rounded-3xl ${selectedTable === "nft" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+              }`}
           >
             NFTS
           </button>
           <button
             onClick={() => setSelectedTable("tx")}
-            className={`px-4 py-2 rounded-3xl ${
-              selectedTable === "tx" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
-            }`}
+            className={`px-4 py-2 rounded-3xl ${selectedTable === "tx" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+              }`}
           >
             Transactions
           </button>
@@ -218,24 +216,64 @@ function TxTable({ chain, address }: TxTableProps) {
   if (isLoading || !txHistory) return <p>Loading Transactions...</p>;
   if (txHistory.length === 0) return <p>No Transactions found for this address</p>;
 
+  console.log(txHistory);
+
   return (
     <table className="table-fixed text-left">
-      <thead>
-        <tr className="border-b-[1px] border-zinc-600 ">
-          <th className="w-3/5 p-4 text-sm font-normal">from</th>
-          <th className="p-4 text-sm font-normal">to</th>
-          <th className="p-4 text-sm font-normal">value</th>
-        </tr>
-      </thead>
       <tbody>
         {txHistory.map((t, i) => (
           <tr key={i}>
-            <td>{t.from.slice(0, 8)}...</td>
-            <td>{t.to.slice(0, 8)}...</td>
-            <td>{t.value}</td>
+            <td>
+              <div className="flex items-center gap-4 py-4">
+                <Avatar id={t.from} />
+                <div className="flex flex-col">
+                  <p className="font-bold text-zinc-50">From</p>
+                  <p className="text-sm">
+                    {t.from.slice(0, 6)}...{t.from.slice(-6)}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div className="flex items-center gap-4 py-4">
+                <Avatar id={t.to} />
+                <div className="flex flex-col">
+                  <p className="font-bold text-zinc-50">To</p>
+                  <p className="text-sm">
+                    {t.to.slice(0, 6)}...{t.to.slice(-6)}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td><div className="flex flex-col">
+              <p className="font-bold text-zinc-50">${t.price}</p>
+              <p>{Math.round(t.value * 100000) / 100000} ETH</p>
+            </div>
+            </td>
+            <td>
+              <Link href={`https://etherscan.io/tx/${t.hash}`} target="_blank">
+                <div className="h-10 w-10 rounded-full p-2 hover:bg-zinc-800 hover:text-zinc-50">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                    />
+                  </svg>
+                </div>
+              </Link>
+            </td>
           </tr>
         ))}
       </tbody>
-    </table>
+    </table >
   );
 }
