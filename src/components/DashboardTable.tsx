@@ -39,22 +39,25 @@ export default function DashboardTable({ chain }: DashboardTableProps) {
         <div className="flex gap-2 rounded-3xl border-[1px] border-zinc-600 p-[2px]">
           <button
             onClick={() => setSelectedTable("token")}
-            className={`px-4 py-2 rounded-3xl ${selectedTable === "token" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
-              }`}
+            className={`px-4 py-2 rounded-3xl ${
+              selectedTable === "token" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+            }`}
           >
             Tokens
           </button>
           <button
             onClick={() => setSelectedTable("nft")}
-            className={`px-4 py-2 rounded-3xl ${selectedTable === "nft" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
-              }`}
+            className={`px-4 py-2 rounded-3xl ${
+              selectedTable === "nft" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+            }`}
           >
             NFTS
           </button>
           <button
             onClick={() => setSelectedTable("tx")}
-            className={`px-4 py-2 rounded-3xl ${selectedTable === "tx" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
-              }`}
+            className={`px-4 py-2 rounded-3xl ${
+              selectedTable === "tx" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+            }`}
           >
             Transactions
           </button>
@@ -174,6 +177,7 @@ function NftTable({ chain, address }: NftTableProps) {
           target="_blank"
           key={i}
           className="flex w-48 flex-col rounded-md shadow-lg transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-2xl"
+          passHref
         >
           <div className="h-48 w-48 overflow-hidden rounded-t-md">
             <img src={data.media} alt={`Image for Nft collection: ${data.collectionName}`} width={200} height={200} />
@@ -206,12 +210,12 @@ function TxTable({ chain, address }: TxTableProps) {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  }, [address, chain]);
 
   useEffect(() => {
     setIsLoading(true);
     getTxHistory();
-  }, []);
+  }, [getTxHistory]);
 
   if (isLoading || !txHistory) return <p>Loading Transactions...</p>;
   if (txHistory.length === 0) return <p>No Transactions found for this address</p>;
@@ -245,13 +249,14 @@ function TxTable({ chain, address }: TxTableProps) {
                 </div>
               </div>
             </td>
-            <td><div className="flex flex-col">
-              <p className="font-bold text-zinc-50">${t.price}</p>
-              <p>{Math.round(t.value * 100000) / 100000} ETH</p>
-            </div>
+            <td>
+              <div className="flex flex-col">
+                <p className="font-bold text-zinc-50">${t.price}</p>
+                <p>{Math.round(parseInt(t.value) * 100000) / 100000} ETH</p>
+              </div>
             </td>
             <td>
-              <Link href={`https://etherscan.io/tx/${t.hash}`} target="_blank">
+              <Link href={`https://etherscan.io/tx/${t.hash}`} target="_blank" passHref>
                 <div className="h-10 w-10 rounded-full p-2 hover:bg-zinc-800 hover:text-zinc-50">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -274,6 +279,6 @@ function TxTable({ chain, address }: TxTableProps) {
           </tr>
         ))}
       </tbody>
-    </table >
+    </table>
   );
 }

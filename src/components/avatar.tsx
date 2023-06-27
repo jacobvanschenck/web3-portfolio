@@ -2,11 +2,12 @@ import { generateFromString } from "generate-avatar";
 
 type AvatarProps = {
   id: string;
+  small?: boolean;
 };
 
-export default function Avatar({ id }: AvatarProps) {
+export default function Avatar({ id, small }: AvatarProps) {
   return (
-    <div className="h-8 w-8 overflow-hidden rounded-full">
+    <div className={`overflow-hidden rounded-full ${small ? "h-5 w-5" : "h-6 w-6"}`}>
       <img src={`data:image/svg+xml;utf8,${generateFromString(id)}`} alt={`Avatar for ${id}`} width={32} height={32} />
     </div>
   );

@@ -1,5 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
+import Avatar from "./avatar";
 
 export default function CustomConnectButton() {
   return (
@@ -23,7 +24,7 @@ export default function CustomConnectButton() {
                 return (
                   <button
                     onClick={openConnectModal}
-                    className="flex items-center px-3 py-1 gap-1 border-zinc-600 rounded-3xl border-[1px] text-zinc-100"
+                    className="flex items-center gap-1 rounded-3xl border-[1px] border-zinc-600 px-3 py-1 text-zinc-100"
                     type="button"
                   >
                     Connect Wallet
@@ -41,11 +42,11 @@ export default function CustomConnectButton() {
                 <div className="flex gap-4">
                   <button
                     onClick={openChainModal}
-                    className="flex items-center px-3 py-1 gap-1 border-zinc-600 rounded-3xl border-[1px] text-zinc-100"
+                    className="flex items-center gap-1 rounded-3xl border-[1px] border-zinc-600 px-3 py-1 text-zinc-100"
                     type="button"
                   >
                     {chain.hasIcon && (
-                      <div className="w-6 h-6 rounded-full overflow-hidden">
+                      <div className="h-6 w-6 overflow-hidden rounded-full">
                         {chain.iconUrl && (
                           <Image alt={chain.name ?? "Chain icon"} src={chain.iconUrl} width={24} height={24} />
                         )}
@@ -58,20 +59,22 @@ export default function CustomConnectButton() {
                       viewBox="0 0 24 24"
                       strokeWidth={2}
                       stroke="currentColor"
-                      className="w-3 h-3"
+                      className="h-3 w-3"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
                   </button>
                   <button
                     onClick={openAccountModal}
-                    className="flex items-center px-3 py-1 gap-1 border-zinc-600 rounded-3xl border-[1px] text-zinc-100"
+                    className="flex items-center gap-1 rounded-3xl border-[1px] border-zinc-600 px-3 py-1 text-zinc-100"
                     type="button"
                   >
-                    {account.ensAvatar && (
-                      <div className="w-6 h-6 rounded-full overflow-hidden">
+                    {account.ensAvatar ? (
+                      <div className="h-6 w-6 overflow-hidden rounded-full">
                         <Image alt="ens avatar" src={account.ensAvatar} width={24} height={24} />
                       </div>
+                    ) : (
+                      <Avatar id={account.address.toLowerCase()} small />
                     )}
                     {account.displayName}
                     <svg
@@ -80,7 +83,7 @@ export default function CustomConnectButton() {
                       viewBox="0 0 24 24"
                       strokeWidth={2}
                       stroke="currentColor"
-                      className="w-3 h-3"
+                      className="h-3 w-3"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                     </svg>
