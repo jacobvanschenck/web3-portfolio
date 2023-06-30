@@ -33,30 +33,36 @@ export default function DashboardTable({ chain }: DashboardTableProps) {
   const { address, isConnected } = useAccount();
 
   return (
-    <div className="flex w-full flex-col rounded-xl bg-zinc-900 p-8">
+    <div className="flex w-full flex-col rounded-xl bg-zinc-200 p-8 dark:bg-zinc-900">
       <div className="flex items-center justify-between pb-8">
-        <p className="text-lg font-bold text-zinc-50">Assets</p>
-        <div className="flex gap-2 rounded-3xl border-[1px] border-zinc-600 p-[2px]">
+        <p className="text-lg font-bold text-zinc-950 dark:text-zinc-50">Assets</p>
+        <div className="flex gap-2 rounded-3xl border-[1px] border-zinc-400 p-[2px] dark:border-zinc-600">
           <button
             onClick={() => setSelectedTable("token")}
-            className={`px-4 py-2 rounded-3xl ${
-              selectedTable === "token" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
+              selectedTable === "token"
+                ? "bg-blue-500 font-bold text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
+                : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
             }`}
           >
             Tokens
           </button>
           <button
             onClick={() => setSelectedTable("nft")}
-            className={`px-4 py-2 rounded-3xl ${
-              selectedTable === "nft" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
+              selectedTable === "nft"
+                ? "bg-blue-500 font-bold  text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
+                : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
             }`}
           >
             NFTS
           </button>
           <button
             onClick={() => setSelectedTable("tx")}
-            className={`px-4 py-2 rounded-3xl ${
-              selectedTable === "tx" ? "bg-zinc-600 text-zinc-50" : "hover:bg-zinc-800 hover:text-zinc-50"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
+              selectedTable === "tx"
+                ? "bg-blue-500 font-bold  text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
+                : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
             }`}
           >
             Transactions
@@ -103,7 +109,7 @@ function TokenTable({ address, chain, isConnected }: TokenTableProps) {
   return (
     <table className="table-fixed text-left">
       <thead>
-        <tr className="border-b-[1px] border-zinc-600 ">
+        <tr className="border-b-[1px] border-zinc-400 dark:border-zinc-600 ">
           <th className="w-3/5 p-4 text-sm font-normal">Token</th>
           <th className="p-4 text-sm font-normal">Price</th>
           <th className="p-4 text-sm font-normal">Balance</th>
@@ -120,13 +126,13 @@ function TokenTable({ address, chain, isConnected }: TokenTableProps) {
                     <img src={t.logo ?? ""} alt={`${t.name} logo`} width={40} height={40} />
                   </div>
                   <div>
-                    <p className="text-xl font-bold text-zinc-50">{t.symbol}</p>
+                    <p className="text-xl font-bold text-zinc-950 dark:text-zinc-50">{t.symbol}</p>
                     <p className="text-sm">{t.name}</p>
                   </div>
                 </td>
-                <td className="p-4 font-bold text-zinc-50">{`\$${t.price}`}</td>
+                <td className="p-4 font-bold text-zinc-950 dark:text-zinc-50">{`\$${t.price}`}</td>
                 <td className="flex flex-col p-4">
-                  <p className="font-bold text-zinc-50">{`\$${t.balanceUsd}`}</p>
+                  <p className="font-bold text-zinc-950 dark:text-zinc-50">{`\$${t.balanceUsd}`}</p>
                   <p className="text-sm">{`${t.balance} ${t.symbol}`}</p>
                 </td>
               </tr>
@@ -178,9 +184,9 @@ function NftTable({ chain, address }: NftTableProps) {
           <div className="h-48 w-48 overflow-hidden rounded-t-md">
             <img src={data.media} alt={`Image for Nft collection: ${data.collectionName}`} width={200} height={200} />
           </div>
-          <div className="flex grow flex-col items-start gap-3 rounded-b-md border-[1px] border-zinc-800 p-3">
+          <div className="flex grow flex-col items-start gap-3 rounded-b-md border-[1px] border-zinc-200 p-3 dark:border-zinc-800">
             <p className="text-xs">{data.collectionName}</p>
-            <p className="text-sm font-bold text-zinc-50">{data.title}</p>
+            <p className="text-sm font-bold text-zinc-950 dark:text-zinc-50">{data.title}</p>
           </div>
         </Link>
       ))}
@@ -227,7 +233,7 @@ function TxTable({ chain, address }: TxTableProps) {
               <div className="flex items-center gap-4 py-4">
                 <Avatar id={t.from} />
                 <div className="flex flex-col">
-                  <p className="font-bold text-zinc-50">From</p>
+                  <p className="font-bold text-zinc-950 dark:text-zinc-50">From</p>
                   <p className="text-sm">
                     {t.from.slice(0, 6)}...{t.from.slice(-6)}
                   </p>
@@ -238,7 +244,7 @@ function TxTable({ chain, address }: TxTableProps) {
               <div className="flex items-center gap-4 py-4">
                 <Avatar id={t.to} />
                 <div className="flex flex-col">
-                  <p className="font-bold text-zinc-50">To</p>
+                  <p className="font-bold text-zinc-950 dark:text-zinc-50">To</p>
                   <p className="text-sm">
                     {t.to.slice(0, 6)}...{t.to.slice(-6)}
                   </p>
@@ -247,13 +253,13 @@ function TxTable({ chain, address }: TxTableProps) {
             </td>
             <td>
               <div className="flex flex-col">
-                <p className="font-bold text-zinc-50">${t.price}</p>
+                <p className="font-bold text-zinc-950 dark:text-zinc-50">${t.price}</p>
                 <p>{Math.round(t.value * 100000) / 100000} ETH</p>
               </div>
             </td>
             <td>
               <Link href={`https://etherscan.io/tx/${t.hash}`} target="_blank" passHref>
-                <div className="h-10 w-10 rounded-full p-2 hover:bg-zinc-800 hover:text-zinc-50">
+                <div className="h-10 w-10 rounded-full p-2 hover:bg-zinc-200 hover:text-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
