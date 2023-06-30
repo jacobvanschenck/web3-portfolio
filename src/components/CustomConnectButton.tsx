@@ -24,7 +24,7 @@ export default function CustomConnectButton() {
                 return (
                   <button
                     onClick={openConnectModal}
-                    className="flex items-center gap-1 rounded-3xl border-[1px] border-zinc-400 px-3 py-1 text-zinc-900 transition-colors duration-150 ease-in-out hover:border-blue-400 hover:bg-blue-100 hover:text-blue-700 dark:border-zinc-600 dark:text-zinc-100 "
+                    className="flex items-center gap-1 rounded-3xl border-[1px] border-zinc-400 px-3 py-1 text-zinc-900 transition-colors duration-150 ease-in-out hover:border-blue-400 hover:bg-blue-100 hover:text-blue-700 dark:border-zinc-600 dark:text-zinc-100 dark:hover:border-blue-500 dark:hover:bg-blue-700 "
                     type="button"
                   >
                     Connect Wallet
