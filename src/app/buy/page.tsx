@@ -30,7 +30,7 @@ const methods = [
     value: "debit",
     label: "Debit or Credit",
     classNames:
-      "w-full rounded-3xl bg-indigo-500 px-4 py-2 font-bold text-zinc-950 disabled:bg-zinc-300 disabled:text-zinc-500 dark:text-zinc-50 dark:disabled:bg-zinc-700",
+      "w-full rounded-3xl bg-indigo-500 px-4 py-2 font-bold text-zinc-50 disabled:bg-zinc-300 disabled:text-zinc-500 dark:text-zinc-50 dark:disabled:bg-zinc-700",
     buttonLabel: "Get Quote",
   },
 ];
