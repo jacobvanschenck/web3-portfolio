@@ -3,17 +3,19 @@
 import { NftMetadata } from "@/app/api/getNftsForOwner/route";
 import { TxMetadata } from "@/app/api/getTxHistory/route";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import Avatar from "./avatar";
 
 type DashboardTableProps = {
   chain: string;
+  setPortfolioValue: Dispatch<SetStateAction<number>>;
 };
 
 type TokenTableProps = {
   address: `0x${string}` | undefined;
   chain: string;
+  setPortfolioValue: Dispatch<SetStateAction<number>>;
   isConnected: boolean;
 };
 
@@ -27,7 +29,7 @@ type TxTableProps = {
   chain: string;
 };
 
-export default function DashboardTable({ chain }: DashboardTableProps) {
+export default function DashboardTable({ chain, setPortfolioValue }: DashboardTableProps) {
   const [selectedTable, setSelectedTable] = useState<"token" | "nft" | "tx">("token");
 
   const { address, isConnected } = useAccount();
@@ -39,44 +41,43 @@ export default function DashboardTable({ chain }: DashboardTableProps) {
         <div className="flex gap-2 rounded-3xl border-[1px] border-zinc-400 p-[2px] dark:border-zinc-600">
           <button
             onClick={() => setSelectedTable("token")}
-            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
-              selectedTable === "token"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${selectedTable === "token"
                 ? "bg-blue-500 font-bold text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
                 : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
-            }`}
+              }`}
           >
             Tokens
           </button>
           <button
             onClick={() => setSelectedTable("nft")}
-            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
-              selectedTable === "nft"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${selectedTable === "nft"
                 ? "bg-blue-500 font-bold  text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
                 : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
-            }`}
+              }`}
           >
             NFTS
           </button>
           <button
             onClick={() => setSelectedTable("tx")}
-            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
-              selectedTable === "tx"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${selectedTable === "tx"
                 ? "bg-blue-500 font-bold  text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
                 : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
-            }`}
+              }`}
           >
             Transactions
           </button>
         </div>
       </div>
-      {selectedTable === "token" && <TokenTable address={address} chain={chain} isConnected={isConnected} />}
+      {selectedTable === "token" && (
+        <TokenTable setPortfolioValue={setPortfolioValue} address={address} chain={chain} isConnected={isConnected} />
+      )}
       {selectedTable === "nft" && <NftTable address={address} chain={chain} />}
       {selectedTable === "tx" && <TxTable address={address} chain={chain} />}
     </div>
   );
 }
 
-function TokenTable({ address, chain, isConnected }: TokenTableProps) {
+function TokenTable({ address, chain, isConnected, setPortfolioValue }: TokenTableProps) {
   const [tokenBalances, setTokenBalances] = useState<Array<any> | null>(null);
   const [isLoading, setIsloading] = useState(false);
 
@@ -103,6 +104,13 @@ function TokenTable({ address, chain, isConnected }: TokenTableProps) {
   useEffect(() => {
     if (address?.length) getBalance();
   }, [address, getBalance]);
+
+  useEffect(() => {
+    if (!tokenBalances) return;
+    let total = 0;
+    tokenBalances.forEach((t) => (total += parseFloat(t.balanceUsd)));
+    setPortfolioValue(total);
+  }, [tokenBalances, setPortfolioValue]);
 
   if (isLoading) return <p>Loading Tokens ...</p>;
 
@@ -221,8 +229,6 @@ function TxTable({ chain, address }: TxTableProps) {
 
   if (isLoading || !txHistory) return <p>Loading Transactions...</p>;
   if (txHistory.length === 0) return <p>No Transactions found for this address</p>;
-
-  console.log(txHistory);
 
   return (
     <table className="table-fixed text-left">

@@ -15,7 +15,7 @@ export default function DarkModeToggle() {
 
   return (
     <button
-      className="flex w-full items-center justify-center gap-2"
+      className="flex w-full items-center justify-center gap-2 px-4 py-6"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       <svg

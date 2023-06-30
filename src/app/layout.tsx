@@ -16,8 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <div className="flex bg-zinc-50 text-zinc-600 dark:bg-zinc-950 dark:text-zinc-400">
             <header>
-              <nav className="flex h-full flex-col justify-between bg-zinc-200 px-4 py-6 dark:bg-zinc-900">
-                <div className="flex items-center gap-2 whitespace-nowrap text-zinc-950 dark:text-zinc-50">
+              <nav className="flex h-full flex-col justify-between border-[1px] border-l-zinc-700 bg-zinc-50 dark:border-none dark:bg-zinc-900">
+                <div className="flex items-center gap-2 whitespace-nowrap px-4 py-6 text-zinc-950 dark:text-zinc-50 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -34,9 +34,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </svg>
                   <h1 className="text-xl">Web3 Portfolio</h1>
                 </div>
-                <ul className="flex grow flex-col gap-8 py-16">
+                <ul className="flex grow flex-col gap-4 py-16">
                   <li>
-                    <Link href="/" className="flex items-center gap-2" passHref>
+                    <Link
+                      href="/"
+                      className="flex items-center gap-2 px-4 py-2 transition-colors duration-150 ease-in-out hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                      passHref
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -56,7 +60,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     </Link>
                   </li>
                   <li>
-                    <Link href="/swap" className="flex items-center gap-2" passHref>
+                    <Link
+                      href="/swap"
+                      className="flex items-center gap-2 px-4 py-2 transition-colors duration-150 ease-in-out hover:bg-zinc-200 dark:hover:bg-zinc-800 "
+                      passHref
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -75,7 +83,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     </Link>
                   </li>
                   <li>
-                    <Link href="/buy" className="flex items-center gap-2" passHref>
+                    <Link
+                      href="/buy"
+                      className="flex items-center gap-2 px-4 py-2 transition-colors duration-150 ease-in-out hover:bg-zinc-200 dark:hover:bg-zinc-800 "
+                      passHref
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
