@@ -44,7 +44,7 @@ export default function DashboardTable({ chain, setPortfolioValue }: DashboardTa
             className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
               selectedTable === "token"
                 ? "bg-blue-500 font-bold text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
-                : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+                : "hover:text-950 hover:bg-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
             }`}
           >
             Tokens
@@ -54,7 +54,7 @@ export default function DashboardTable({ chain, setPortfolioValue }: DashboardTa
             className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
               selectedTable === "nft"
                 ? "bg-blue-500 font-bold  text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
-                : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+                : "hover:text-950 hover:bg-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
             }`}
           >
             NFTS
@@ -64,7 +64,7 @@ export default function DashboardTable({ chain, setPortfolioValue }: DashboardTa
             className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
               selectedTable === "tx"
                 ? "bg-blue-500 font-bold  text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
-                : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+                : "hover:text-950 hover:bg-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
             }`}
           >
             Transactions
