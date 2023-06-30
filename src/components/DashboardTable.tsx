@@ -41,28 +41,31 @@ export default function DashboardTable({ chain, setPortfolioValue }: DashboardTa
         <div className="flex gap-2 rounded-3xl border-[1px] border-zinc-400 p-[2px] dark:border-zinc-600">
           <button
             onClick={() => setSelectedTable("token")}
-            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${selectedTable === "token"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
+              selectedTable === "token"
                 ? "bg-blue-500 font-bold text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
                 : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
-              }`}
+            }`}
           >
             Tokens
           </button>
           <button
             onClick={() => setSelectedTable("nft")}
-            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${selectedTable === "nft"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
+              selectedTable === "nft"
                 ? "bg-blue-500 font-bold  text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
                 : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
-              }`}
+            }`}
           >
             NFTS
           </button>
           <button
             onClick={() => setSelectedTable("tx")}
-            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${selectedTable === "tx"
+            className={`px-4 py-2 rounded-3xl transition ease-in-out duration-100 ${
+              selectedTable === "tx"
                 ? "bg-blue-500 font-bold  text-zinc-50 dark:bg-zinc-600 dark:text-zinc-50"
                 : "hover:text-950 hover:bg-zinc-200 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
-              }`}
+            }`}
           >
             Transactions
           </button>
@@ -192,7 +195,7 @@ function NftTable({ chain, address }: NftTableProps) {
           <div className="h-48 w-48 overflow-hidden rounded-t-md">
             <img src={data.media} alt={`Image for Nft collection: ${data.collectionName}`} width={200} height={200} />
           </div>
-          <div className="flex grow flex-col items-start gap-3 rounded-b-md border-[1px] border-zinc-200 p-3 dark:border-zinc-800">
+          <div className="flex grow flex-col items-start gap-3 rounded-b-md border-[1px] border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-800">
             <p className="text-xs">{data.collectionName}</p>
             <p className="text-sm font-bold text-zinc-950 dark:text-zinc-50">{data.title}</p>
           </div>

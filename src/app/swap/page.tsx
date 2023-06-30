@@ -68,7 +68,7 @@ export default function Swap() {
                 >
                   {options.map((o, i) => (
                     <option key={i} value={o.value}>
-                      {o.label}
+                      {o.value}
                     </option>
                   ))}
                 </select>
